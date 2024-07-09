@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pergunta</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fce4ec;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        img {
+            width: 400px;
+            height: auto;
+            border-radius: 10px;
+        }
+        h2 {
+            color: #d81b60;
+        }
+        .opcoes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .opcao {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 100px;
+            border: 1px solid #d81b60;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+            background-color: #f8bbd0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .opcao input {
+            margin-right: 10px;
+        }
+        .opcao:hover {
+            background-color: #f48fb1;
+        }
+        button {
+            background-color: #d81b60;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #c2185b;
+        }
+    </style>
+    {% load static %}
+</head>
+<body>
+    <div class="container">
+        <img src="{% static pergunta.imagem %}" alt="Imagem da pergunta">
+        <h2>{{ pergunta.pergunta }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="opcoes">
+                {% for opcao in pergunta.opcoes %}
+                    <label class="opcao">
+                        <input type="radio" name="resposta" value="{{ opcao }}" required>
+                        {{ opcao }}
+                    </label>
+                {% endfor %}
+            </div>
+            <button type="submit">Próxima</button>
+        </form>
+    </div>
+</body>
+</html>
